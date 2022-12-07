@@ -1,0 +1,15 @@
+.allPostsBtn {
+  background-color: #3f9f42;
+}
+.allPostsBtn:hover {
+  background-color: #071327 !important;
+}
+
+.clientpostsSpinner {
+  /* border: 2px solid red; */
+  margin-top: 5em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

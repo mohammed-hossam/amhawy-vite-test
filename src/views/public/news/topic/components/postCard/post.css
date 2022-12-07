@@ -1,0 +1,15 @@
+.topic_card_title {
+  /* display: block; */
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  /* max-lines: 2; */
+  /* max-width: 45ch !important; */
+  /* line-clamp: 2 !important; */
+  /* -webkit-line-clamp: 2 !important; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}

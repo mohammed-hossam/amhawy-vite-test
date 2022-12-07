@@ -1,0 +1,40 @@
+table {
+  border: 2px solid black !important;
+}
+
+td,
+th {
+  border: 2px solid #999 !important;
+  text-align: center;
+}
+
+.imgContainer {
+  position: relative;
+}
+
+.mainImg {
+  width: 100%;
+}
+
+.ourimgs {
+  display: block;
+  width: 22rem;
+  height: 19rem;
+  float: left;
+  margin-right: 5rem;
+}
+
+.subTitle {
+  color: #3f9f42;
+}
+
+.mainHeader {
+  font-size: 5rem !important;
+  color: #3f9f42;
+  margin-bottom: 0.5em !important;
+}
+
+.troqMokaf7a {
+  font-size: 0.8rem;
+  color: #3f9f42;
+}

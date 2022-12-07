@@ -1,0 +1,42 @@
+#legend {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 10px;
+  margin: 10px;
+  border: 3px solid #000;
+}
+
+#legend h3 {
+  margin-top: 0;
+  margin-bottom: 0.3em;
+}
+#legend p {
+  margin-top: 0;
+}
+
+#legend img {
+  vertical-align: middle;
+}
+
+.googleTable_table {
+  /* border: 3px solid black !important; */
+  border-collapse: collapse !important;
+}
+
+.googleTable_td {
+  padding: 0.27em 0.5em;
+  border: 1px solid black !important;
+}
+
+/* .googleTable_td_title {
+} */
+
+.googleTable_tr:hover {
+  background-color: #3f9f42;
+  color: white;
+  font-weight: 500;
+}
+
+.googleTable_tr {
+  border: 1px solid black !important;
+}

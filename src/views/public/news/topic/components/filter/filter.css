@@ -1,0 +1,36 @@
+.filterActive {
+  background-color: #3f9f42 !important;
+  color: white !important;
+}
+
+.scrollTopics {
+  overflow-x: scroll;
+  width: 100%;
+  white-space: nowrap;
+  padding-bottom: 1em !important;
+}
+
+.scrollTopics::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  /* background: #3f9f42; */
+}
+
+.scrollTopics::-webkit-scrollbar-thumb {
+  /* background-color: #3f9f42; */
+  /* background-color: #aaaaaa; */
+  background-color: #071327;
+  background-clip: padding-box;
+  border-radius: 2ex;
+  -webkit-border-radius: 2ex;
+  /* -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75); */
+}
+
+/* .scrollTopics::-webkit-scrollbar-corner {
+  background: #3f9f42;
+} */
+
+/* .scrollTopics::-webkit-scrollbar-track {
+  border-radius: 15px;
+  margin: 100px;
+} */
