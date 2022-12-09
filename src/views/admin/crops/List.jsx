@@ -1,8 +1,8 @@
 /*!
 
 */
-import React, { useEffect, useState } from 'react';
-import { fetchData } from 'services/api.service';
+import React, { useEffect, useState } from "react";
+import { fetchData } from "services/api.service";
 // reactstrap components
 import {
   Card,
@@ -16,9 +16,9 @@ import {
   ModalHeader,
   Row,
   Col,
-} from 'reactstrap';
-import Varieties from './Varieties';
-import { Link } from 'react-router-dom';
+} from "reactstrap";
+import Varieties from "./Varieties";
+import { Link } from "react-router-dom";
 function Tables() {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState({});
@@ -31,7 +31,7 @@ function Tables() {
   };
 
   useEffect(() => {
-    fetchData('/crop', 'get')
+    fetchData("/crop", "get")
       .then((response) => response.json())
       .then((data) => {
         setCrops(data.data);
@@ -67,18 +67,16 @@ function Tables() {
                         <tr key={index}>
                           <Link
                             className="linkStyle"
-                            to={{
-                              pathname: `/admin/crops/${crop._id}`,
-                              state: {
-                                crop: crop,
-                                cropId: crop._id,
-                              },
+                            to={`/admin/crops/${crop._id}`}
+                            state={{
+                              crop: crop,
+                              cropId: crop._id,
                             }}
                           >
                             <td>{crop.name_ar}</td>
                             <td>{crop.name_en}</td>
                             <td>{crop.code}</td>
-                            <td>{crop.active === true ? 'نعم' : 'لا'}</td>
+                            <td>{crop.active === true ? "نعم" : "لا"}</td>
 
                             {/* <td style={{ textAlign: 'center' }}>
                               <Button

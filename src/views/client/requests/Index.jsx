@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { useHistory } from 'react-router';
-import { Button, Modal, ModalBody, ModalHeader, Spinner } from 'reactstrap';
-import axiosApiInstance from 'services/axios.inercept';
-import Details from './Details';
+import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { Button, Modal, ModalBody, ModalHeader, Spinner } from "reactstrap";
+import axiosApiInstance from "services/axios.inercept";
+import Details from "./Details";
 
 function Index(props) {
-  const history = useHistory();
+  const history = useNavigate();
 
   const [modalOpen, setModalOpen] = useState(false);
   const toggle = () => setModalOpen(!modalOpen);
@@ -16,35 +16,35 @@ function Index(props) {
   const [err, setErr] = useState(null);
 
   const printStatus = (status) => {
-    if (status === 'inprogress') return 'تحت المراجعة';
-    if (status === 'accept') return 'تم اصدار الشهادة';
-    if (status === 'reject') return 'رفض الطلب';
-    return '';
+    if (status === "inprogress") return "تحت المراجعة";
+    if (status === "accept") return "تم اصدار الشهادة";
+    if (status === "reject") return "رفض الطلب";
+    return "";
   };
 
   const handelDeleteBtn = (id) => {
-    if (window.confirm(' تاكيد حذف الطلب ؟') === true) {
+    if (window.confirm(" تاكيد حذف الطلب ؟") === true) {
       axiosApiInstance
-        .delete('/client/request/' + id)
+        .delete("/client/request/" + id)
         .then((response) => {
-          toast.success('تم حذف الطلب بنجاح');
+          toast.success("تم حذف الطلب بنجاح");
           axiosApiInstance
-            .get('/client/request')
+            .get("/client/request")
             .then((response) => {
               if (response.data.length > 0) {
                 setLoading(false);
                 setData(response.data.data);
               }
             })
-            .catch((e) => toast.error('خطا في الخادم'));
+            .catch((e) => toast.error("خطا في الخادم"));
         })
-        .catch((e) => toast.error('خطا في الخادم'));
+        .catch((e) => toast.error("خطا في الخادم"));
     }
   };
 
   useEffect(() => {
     axiosApiInstance
-      .get('/client/request')
+      .get("/client/request")
       .then((response) => {
         // console.log(response);
         if (response.data.length > 0) {
@@ -52,7 +52,7 @@ function Index(props) {
           setData(response.data.data);
         } else {
           setLoading(false);
-          setErr('يجب ادخال محصول اولا');
+          setErr("يجب ادخال محصول اولا");
         }
       })
       .catch((e) => {
@@ -73,9 +73,7 @@ function Index(props) {
         <div className="text-center">
           <p>{err}</p>
 
-          <Button onClick={() => history.push('/client/code')}>
-            ادخال محصول
-          </Button>
+          <Button onClick={() => history.push("/client/code")}>ادخال محصول</Button>
         </div>
       )}
 
@@ -95,7 +93,7 @@ function Index(props) {
           </thead>
           <tbody>
             {data?.map((request, index) => (
-              <tr style={{ cursor: 'pointer' }} key={index + 1}>
+              <tr style={{ cursor: "pointer" }} key={index + 1}>
                 <th scope="row">{index + 1}</th>
                 <td
                   onClick={() => {
@@ -138,10 +136,7 @@ function Index(props) {
                   {printStatus(request.status)}
                 </td>
                 <td>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handelDeleteBtn(request._id)}
-                  >
+                  <button className="btn btn-danger" onClick={() => handelDeleteBtn(request._id)}>
                     <i className="fas fa-trash-alt"></i>
                   </button>
                 </td>
@@ -153,7 +148,7 @@ function Index(props) {
 
       <Modal
         className="custom-map-modal modal-lg"
-        style={{ width: 'fit-content', maxWidth: '1200px' }}
+        style={{ width: "fit-content", maxWidth: "1200px" }}
         aria-labelledby="contained-modal-title-vcenter"
         isOpen={modalOpen}
         toggle={toggle}

@@ -1,14 +1,20 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button, Nav } from "reactstrap";
 import "./sidebar.css";
 import Logo from "./tree.png";
 
 function Sidebar(props) {
   const sidebar = React.useRef();
+  const location = useLocation();
+
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    // console.log(props.location);
+    // console.log(props.location.pathname);
+    // console.log(props.location.pathname.indexOf(routeName));
+    return location.pathname === routeName ? "active" : "";
+    // return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
 
   function emptySessionStorage() {

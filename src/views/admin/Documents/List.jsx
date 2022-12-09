@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'services/axios.inercept';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "services/axios.inercept";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -16,14 +16,14 @@ import {
   ModalHeader,
   Spinner,
   Input,
-} from 'reactstrap';
-import SearchForm from './Search';
-import { Toaster } from 'react-hot-toast';
+} from "reactstrap";
+import SearchForm from "./Search";
+import { Toaster } from "react-hot-toast";
 
 function Tables() {
   const [requests, setRequests] = useState([]);
   const [page, setPage] = useState(1);
-  const [currentQuery, setCurrentQuery] = useState('');
+  const [currentQuery, setCurrentQuery] = useState("");
   const [searchPage, setSearchPage] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const toggle = () => setModalOpen(!modalOpen);
@@ -33,8 +33,8 @@ function Tables() {
   function load(page = 1, query = currentQuery) {
     setLoading(true);
     return axios
-      .get('/admin/documents' + query, {
-        headers: { sortBy: 'createdAt', sortValue: -1, page },
+      .get("/admin/documents" + query, {
+        headers: { sortBy: "createdAt", sortValue: -1, page },
       })
       .then((data) => {
         setRequests(data.data.data);
@@ -43,7 +43,6 @@ function Tables() {
         setLoading(false);
       });
   }
-
 
   const disablNext = () => {
     if (requests.length === 0 || requests.length < 10) return true;
@@ -64,7 +63,7 @@ function Tables() {
   };
 
   const handelSearch = (values) => {
-    let query = '?';
+    let query = "?";
     if (values.type.length > 0) {
       query = query + `type=${values.type}&`;
     }
@@ -86,9 +85,7 @@ function Tables() {
   return (
     <>
       <div className="content">
-        {loading === true && (
-          <Spinner animation="border" role="status"></Spinner>
-        )}
+        {loading === true && <Spinner animation="border" role="status"></Spinner>}
         <Row>
           <Toaster />
           <Col md="12">
@@ -99,8 +96,8 @@ function Tables() {
                 </Button>
                 <Button
                   onClick={() => {
-                    load(1, '');
-                    setCurrentQuery('');
+                    load(1, "");
+                    setCurrentQuery("");
                   }}
                   color="info"
                   className="float-right"
@@ -112,26 +109,26 @@ function Tables() {
                     color="dark"
                     className="float-right"
                     style={{
-                      display: 'inline-block',
-                      width: '5rem',
-                      paddingLeft: '0',
-                      paddingRight: '0',
-                      paddingTop: '0',
-                      paddingBottom: '0',
+                      display: "inline-block",
+                      width: "5rem",
+                      paddingLeft: "0",
+                      paddingRight: "0",
+                      paddingTop: "0",
+                      paddingBottom: "0",
                     }}
                     type="button"
                   >
                     <Input
                       style={{
-                        display: 'inline-block',
-                        color: 'white',
-                        backgroundColor: 'transparent',
-                        width: '100%',
-                        height: '100%',
-                        paddingBottom: '11px',
-                        paddingTop: '8px',
-                        paddingRight: '35px',
-                        border: 'none',
+                        display: "inline-block",
+                        color: "white",
+                        backgroundColor: "transparent",
+                        width: "100%",
+                        height: "100%",
+                        paddingBottom: "11px",
+                        paddingTop: "8px",
+                        paddingRight: "35px",
+                        border: "none",
                       }}
                       placeholder={page}
                       className="postListPageSearch shadow-none"
@@ -157,33 +154,31 @@ function Tables() {
                     {requests?.map((request, index) => (
                       <Link
                         className="linkStyle"
-                        to={{
-
-                          pathname: request.requestType === 'takweed'
-                            ?
-                            `/admin/documents/uploadedPics` :
-                            '/admin/dashboard',
-                          state: {
-                            code: request?.code,
-                          },
+                        to={
+                          request.requestType === "takweed"
+                            ? `/admin/documents/uploadedPics`
+                            : "/admin/dashboard"
+                        }
+                        state={{
+                          code: request?.code,
                         }}
                       >
                         <tr
                           key={index}
-                          style={{ cursor: 'pointer' }}
+                          style={{ cursor: "pointer" }}
                           className={
-                            'text-' +
-                            (request.status === 'reject'
-                              ? 'danger'
-                              : request.status === 'accept'
-                                ? 'success'
-                                : 'default')
+                            "text-" +
+                            (request.status === "reject"
+                              ? "danger"
+                              : request.status === "accept"
+                              ? "success"
+                              : "default")
                           }
                         >
                           <td>
                             {request?.cancelled === true && (
                               <span className="text-danger">
-                                <i className="far fa-times-circle" />{' '}
+                                <i className="far fa-times-circle" />{" "}
                               </span>
                             )}
                             {request.code}

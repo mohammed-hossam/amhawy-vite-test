@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { fetchData } from 'services/api.service';
-import { useHistory } from 'react-router-dom';
-import Convert from 'utils/convert/convert';
+import React, { useEffect, useState } from "react";
+import { fetchData } from "services/api.service";
+import { useNavigate } from "react-router-dom";
+import Convert from "utils/convert/convert";
 import {
   Card,
   CardHeader,
@@ -13,41 +13,40 @@ import {
   ModalHeader,
   ModalBody,
   Table,
-} from 'reactstrap';
-import SearchUserForm from './SearchUserForm';
-import ToggleButton from './toggleButton/ToggleButton';
-import { Toaster } from 'react-hot-toast';
+} from "reactstrap";
+import SearchUserForm from "./SearchUserForm";
+import ToggleButton from "./toggleButton/ToggleButton";
+import { Toaster } from "react-hot-toast";
 
 function Tables() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [currentQuery, setCurrentQuery] = useState('');
+  const [currentQuery, setCurrentQuery] = useState("");
 
   const toggle = () => setModalOpen(!modalOpen);
 
   const [users, setUsers] = useState([]);
   var [page, setPage] = useState(0);
   // var [downloadExcelLink, setDownloadExcelLink] = useState('');
-  let history = useHistory();
+  let history = useNavigate();
 
   function exportToCSV(filename) {
     // console.log(users);
     let usedUsers = [
       {
-        _id: 'id',
-        name: 'الاسم',
-        email: 'البريد الإليكتروني',
-        phone: 'رقم التليفون',
-        otpVerified: 'حالة التاكيد',
-        nationalId: 'رقم الهويه	',
-        createdAt: 'تاريخ التسجيل',
+        _id: "id",
+        name: "الاسم",
+        email: "البريد الإليكتروني",
+        phone: "رقم التليفون",
+        otpVerified: "حالة التاكيد",
+        nationalId: "رقم الهويه	",
+        createdAt: "تاريخ التسجيل",
       },
       ...users,
     ];
     // let usedUsers = users;
     let csvContent = new Convert().toCSV(usedUsers);
 
-    let URL =
-      'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csvContent);
+    let URL = "data:text/csv;charset=utf-8,%EF%BB%BF" + encodeURIComponent(csvContent);
 
     // arr = [{ bnd: "Brand name", prd: "product name", skus: "count of skus" }, ...arr]
 
@@ -70,12 +69,12 @@ function Tables() {
     // let tableHTMLData = tableRef.current.outerHTML;
     let fileName = `${filename}.csv`;
     // Create download link element
-    let downloadLink = document.createElement('a');
+    let downloadLink = document.createElement("a");
 
     if (downloadLink.download !== undefined) {
       // feature detection
       downloadLink.href = URL;
-      downloadLink.setAttribute('download', fileName);
+      downloadLink.setAttribute("download", fileName);
       downloadLink.click();
     } else {
       window.open(URL);
@@ -120,8 +119,8 @@ function Tables() {
   }
 
   function load(page = 1, query = currentQuery) {
-    return fetchData('/user' + query, 'get', null, {
-      sortBy: 'createdAt',
+    return fetchData("/user" + query, "get", null, {
+      sortBy: "createdAt",
       sortValue: -1,
       page,
     })
@@ -137,7 +136,7 @@ function Tables() {
   }, []);
 
   const handelSearch = (values) => {
-    let query = '?';
+    let query = "?";
     if (values.name.length > 0) {
       query = query + `name=${values.name}&`;
     }
@@ -187,8 +186,8 @@ function Tables() {
                 </Button>
                 <Button
                   onClick={() => {
-                    load(1, '');
-                    setCurrentQuery('');
+                    load(1, "");
+                    setCurrentQuery("");
                   }}
                   color="info"
                   className="float-right"
@@ -201,7 +200,7 @@ function Tables() {
                 <Button
                   color="dark"
                   className="float-right"
-                  onClick={() => exportToCSV('المستخدمين')}
+                  onClick={() => exportToCSV("المستخدمين")}
                 >
                   تنزيل ملف csv
                 </Button>
@@ -259,8 +258,8 @@ function Tables() {
                       <tr
                         key={user._id}
                         style={{
-                          cursor: 'pointer',
-                          color: user.otpVerified ? '' : '#ff0000',
+                          cursor: "pointer",
+                          color: user.otpVerified ? "" : "#ff0000",
                         }}
                         onClick={() => viewItem(user._id)}
                         // className={
@@ -273,18 +272,10 @@ function Tables() {
                         <td>{user.nationalId}</td>
                         <td>{user.createdAt.substring(0, 10)}</td>
                         <td>
-                          <ToggleButton
-                            active={user.otpVerified}
-                            id={user._id}
-                            type="user"
-                          />
+                          <ToggleButton active={user.otpVerified} id={user._id} type="user" />
                         </td>
                         <td>
-                          <ToggleButton
-                            active={user.reviewer || null}
-                            id={user._id}
-                            type="cert"
-                          />
+                          <ToggleButton active={user.reviewer || null} id={user._id} type="cert" />
                         </td>
                       </tr>
                     ))}

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Field, Formik } from 'formik';
-import { Button, FormGroup, Form, Input } from 'reactstrap';
-import toast, { Toaster } from 'react-hot-toast';
-import { useHistory } from 'react-router';
-import axios from 'services/axios.inercept';
+import React, { useEffect, useState } from "react";
+import { Field, Formik } from "formik";
+import { Button, FormGroup, Form, Input } from "reactstrap";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router";
+import axios from "services/axios.inercept";
 
 const ResetPassword = () => {
-  const OTP_TOKEN = 'TakweedFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ';
-  let history = useHistory();
+  const OTP_TOKEN = "TakweedFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ";
+  let history = useNavigate();
 
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(localStorage.getItem('token'));
+    setToken(localStorage.getItem("token"));
     // console.log(token);
   }, [token]);
 
@@ -36,16 +36,16 @@ const ResetPassword = () => {
 
         resetForm();
         if (response.status === 200) {
-          toast.success('تم تغيير كلمة الكمرور بنجاح');
-          history.push('/client');
+          toast.success("تم تغيير كلمة الكمرور بنجاح");
+          history.push("/client");
         } else {
-          toast.error('خطا ...');
+          toast.error("خطا ...");
         }
       })
       .catch((e) => {
         setSubmitting(false);
         console.log(e);
-        toast.error('خطا ...');
+        toast.error("خطا ...");
       });
   };
 
@@ -57,20 +57,20 @@ const ResetPassword = () => {
         </div>
         <div className="login-form">
           <Formik
-            initialValues={{ password: '', passwordAgain: '' }}
+            initialValues={{ password: "", passwordAgain: "" }}
             validate={(values) => {
               const errors = {};
 
               if (!values.password) {
-                errors.password = 'مطلوب';
+                errors.password = "مطلوب";
               }
 
               if (!values.passwordAgain) {
-                errors.passwordAgain = 'مطلوب';
+                errors.passwordAgain = "مطلوب";
               }
 
               if (values.password !== values.passwordAgain) {
-                errors.passwordAgain = 'كلمة المرور غير متطابفة';
+                errors.passwordAgain = "كلمة المرور غير متطابفة";
               }
 
               return errors;
@@ -90,7 +90,7 @@ const ResetPassword = () => {
               <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <Input
-                    style={{ margin: '1em' }}
+                    style={{ margin: "1em" }}
                     bsSize="lg"
                     placeholder="كلمة المرور"
                     name="password"
@@ -98,12 +98,12 @@ const ResetPassword = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <span style={{ margin: '1em' }} className="text-danger">
+                  <span style={{ margin: "1em" }} className="text-danger">
                     {errors.password && touched.password && errors.password}
                   </span>
 
                   <Input
-                    style={{ margin: '1em' }}
+                    style={{ margin: "1em" }}
                     bsSize="lg"
                     placeholder="كلمة المرور مرة اخرى"
                     name="passwordAgain"
@@ -111,15 +111,13 @@ const ResetPassword = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <span style={{ margin: '1em' }} className="text-danger">
-                    {errors.passwordAgain &&
-                      touched.passwordAgain &&
-                      errors.passwordAgain}
+                  <span style={{ margin: "1em" }} className="text-danger">
+                    {errors.passwordAgain && touched.passwordAgain && errors.passwordAgain}
                   </span>
                 </FormGroup>
 
                 <Button
-                  style={{ margin: '1em' }}
+                  style={{ margin: "1em" }}
                   className="default-button"
                   type="submit"
                   disabled={isSubmitting}

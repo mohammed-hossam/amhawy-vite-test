@@ -3,16 +3,7 @@
 */
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  Container,
-
-} from "reactstrap";
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Container } from "reactstrap";
 
 import routes from "../../../routes/admin.routes";
 
@@ -29,7 +20,7 @@ function Header(props) {
     }
     setIsOpen(!isOpen);
   };
- 
+
   const getBrand = () => {
     let brandName = "Default Brand";
     routes.map((prop, key) => {
@@ -56,10 +47,7 @@ function Header(props) {
     window.addEventListener("resize", updateColor.bind(this));
   });
   React.useEffect(() => {
-    if (
-      window.innerWidth < 993 &&
-      document.documentElement.className.indexOf("nav-open") !== -1
-    ) {
+    if (window.innerWidth < 993 && document.documentElement.className.indexOf("nav-open") !== -1) {
       document.documentElement.classList.toggle("nav-open");
       sidebarToggle.current.classList.toggle("toggled");
     }
@@ -67,17 +55,12 @@ function Header(props) {
   return (
     // add or remove classes depending if we are on full-screen-maps page or not
     <Navbar
-      color={
-        props.location.pathname.indexOf("full-screen-maps") !== -1
-          ? "dark"
-          : color
-      }
+      color={location.pathname.indexOf("full-screen-maps") !== -1 ? "dark" : color}
       expand="lg"
       className={
-        props.location.pathname.indexOf("full-screen-maps") !== -1
+        location.pathname.indexOf("full-screen-maps") !== -1
           ? "navbar-absolute fixed-top"
-          : "navbar-absolute fixed-top " +
-            (color === "transparent" ? "navbar-transparent " : "")
+          : "navbar-absolute fixed-top " + (color === "transparent" ? "navbar-transparent " : "")
       }
     >
       <Container fluid>
@@ -102,15 +85,12 @@ function Header(props) {
           <span className="navbar-toggler-bar navbar-kebab" />
         </NavbarToggler>
         <Collapse isOpen={isOpen} navbar className="justify-content-end">
-         
-          
-          <Nav navbar> 
-
+          <Nav navbar>
             <NavItem>
               <Link to="/login" className="nav-link btn-rotate">
                 <i className="nc-icon nc-simple-remove" />
                 <p>
-                  <span className="d-lg-none d-md-block">  تسجيل خروج </span>
+                  <span className="d-lg-none d-md-block"> تسجيل خروج </span>
                 </p>
               </Link>
             </NavItem>

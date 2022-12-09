@@ -1,32 +1,33 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
 
-import toast, { Toaster } from 'react-hot-toast';
-import { Field, Formik } from 'formik';
-import axios from 'services/axios.inercept';
+import toast, { Toaster } from "react-hot-toast";
+import { Field, Formik } from "formik";
+import axios from "services/axios.inercept";
 // reactstrap components
-import { Button, FormGroup, Form, Input } from 'reactstrap';
-import { useHistory } from 'react-router';
-import validate from '../../../utils/validationUtils/validation';
-import OptCode from './components/OptCode';
-import { UserContext, actions } from 'contexts/user';
+import { Button, FormGroup, Form, Input } from "reactstrap";
+import { useNavigate } from "react-router";
+import validate from "../../../utils/validationUtils/validation";
+import OptCode from "./components/OptCode";
+import { UserContext, actions } from "contexts/user";
 
 function LoginForm() {
+  console.log("login page");
   const [state, dispatch] = useContext(UserContext);
 
-  const OTP_TOKEN = 'TakweedFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ';
+  const OTP_TOKEN = "TakweedFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ";
   const [otpChecked, setOtpChecked] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [checkCode, setCheckCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [checkCode, setCheckCode] = useState("");
 
   React.useEffect(() => {
     // console.log(actions.SET_AUTH);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    localStorage.removeItem('_r');
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("_r");
     dispatch({ type: actions.SET_AUTH });
   }, []);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const handleLoginSubmitForm = (values, { setSubmitting }) => {
     setSubmitting(true);
@@ -39,23 +40,24 @@ function LoginForm() {
         })
         .then((response) => {
           setSubmitting(false);
-          localStorage.setItem('token', response.data.accessToken);
-          localStorage.setItem('user', response.data.data.name);
-          localStorage.setItem('_r', '324FC5612ce4E');
-          toast.success('تسجيل عمليه الدخول بنجاح');
+          localStorage.setItem("token", response.data.accessToken);
+          localStorage.setItem("user", response.data.data.name);
+          localStorage.setItem("_r", "324FC5612ce4E");
+          toast.success("تسجيل عمليه الدخول بنجاح");
           dispatch({
             type: actions.SET_AUTH,
             payload: response.data.data.role,
           });
-          history.push('/admin/dashboard');
+          // history.push("/");
+          navigate("/");
         })
         .catch((e) => {
           setSubmitting(false);
-          toast.error('خطا ...');
+          toast.error("خطا ...");
         });
     } else {
       values = {
-        phone: '+2' + values.email,
+        phone: "+2" + values.email,
         password: values.password,
       };
       axios
@@ -67,21 +69,22 @@ function LoginForm() {
         .then((response) => {
           // console.log(response);
           setSubmitting(false);
-          localStorage.setItem('token', response.data.accessToken);
-          localStorage.setItem('user', response.data.data.name);
-          localStorage.setItem('info', JSON.stringify(response.data.data));
-          localStorage.setItem('_r', '954VC58412cH1M');
+          localStorage.setItem("token", response.data.accessToken);
+          localStorage.setItem("user", response.data.data.name);
+          localStorage.setItem("info", JSON.stringify(response.data.data));
+          localStorage.setItem("_r", "954VC58412cH1M");
           // console.log('loged in');
           dispatch({
             type: actions.SET_AUTH,
             payload: response.data.data.role,
           });
-          toast.success('تسجيل عمليه الدخول بنجاح');
-          history.push('/client');
+          toast.success("تسجيل عمليه الدخول بنجاح");
+          navigate("/client");
+          // history.push("/client");
         })
         .catch((e) => {
           setSubmitting(false);
-          toast.error('خطا ...');
+          toast.error("خطا ...");
         });
     }
   };
@@ -89,13 +92,13 @@ function LoginForm() {
   const handleRegisterSubmitForm = (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
     // console.log(values);
-    if (values.picked === 'a') {
+    if (values.picked === "a") {
       values.nationalId = values.number;
     }
-    if (values.picked === 'b') {
+    if (values.picked === "b") {
       values.tradeId = values.number;
     }
-    values.phone = '+2' + values.phone;
+    values.phone = "+2" + values.phone;
     axios
       .post(`/auth/signup/`, values, {
         headers: {
@@ -109,14 +112,14 @@ function LoginForm() {
           setPhoneNumber(response.data.phone);
           setCheckCode(response.data.checkCode);
           setOtpChecked(true);
-          toast.success('OTP sent to ' + response.data.phone);
+          toast.success("OTP sent to " + response.data.phone);
         } else {
-          toast.error('خطا ...');
+          toast.error("خطا ...");
         }
       })
       .catch((e) => {
         setSubmitting(false);
-        toast.error('خطا ...');
+        toast.error("خطا ...");
       });
   };
 
@@ -156,52 +159,46 @@ function LoginForm() {
             <div className="login-form">
               <Formik
                 initialValues={{
-                  name: '',
-                  phone: '',
-                  email: '',
-                  password: '',
-                  picked: '',
-                  number: '',
+                  name: "",
+                  phone: "",
+                  email: "",
+                  password: "",
+                  picked: "",
+                  number: "",
                 }}
                 validate={(values) => {
                   const errors = {};
                   //mail errors
                   if (!values.email) {
-                    errors.email = 'مطلوب';
+                    errors.email = "مطلوب";
                   } else if (!validate.isEmailValide(values.email)) {
-                    errors.email = 'من فضلك ادخل بريد الكتروني صحيح';
+                    errors.email = "من فضلك ادخل بريد الكتروني صحيح";
                   }
                   //password errors
                   if (!values.password) {
-                    errors.password = 'مطلوب';
+                    errors.password = "مطلوب";
                   } else if (values.password.length < 6) {
-                    errors.password = 'كلمه المرور  6 حروف او اراقام';
+                    errors.password = "كلمه المرور  6 حروف او اراقام";
                   }
                   //name errors
                   if (!values.name) {
-                    errors.name = 'مطلوب';
+                    errors.name = "مطلوب";
                   } else if (!validate.isNameValide(values.name)) {
-                    errors.name = 'من فضلك ادخل الاسم كامل صحيح';
+                    errors.name = "من فضلك ادخل الاسم كامل صحيح";
                   }
                   //phone errors
                   if (!values.phone) {
-                    errors.phone = 'مطلوب';
+                    errors.phone = "مطلوب";
                   } else if (!validate.isMobileValide(values.phone)) {
-                    errors.phone = 'من فضلك ادخل رقم الموبيل الصحيح';
+                    errors.phone = "من فضلك ادخل رقم الموبيل الصحيح";
                   }
                   //number errors
                   if (!values.number) {
-                    errors.number = 'مطلوب';
-                  } else if (
-                    !validate.isNationalIdValide(values.number) &&
-                    values.picked === 'a'
-                  ) {
-                    errors.number = 'من فضلك ادخل الرقم القومي الصحيح';
-                  } else if (
-                    !validate.isTradeIdValide(values.number) &&
-                    values.picked === 'b'
-                  ) {
-                    errors.number = 'من فضلك ادخل رقم السجل التجاري الصحيح';
+                    errors.number = "مطلوب";
+                  } else if (!validate.isNationalIdValide(values.number) && values.picked === "a") {
+                    errors.number = "من فضلك ادخل الرقم القومي الصحيح";
+                  } else if (!validate.isTradeIdValide(values.number) && values.picked === "b") {
+                    errors.number = "من فضلك ادخل رقم السجل التجاري الصحيح";
                   }
 
                   return errors;
@@ -269,20 +266,20 @@ function LoginForm() {
                         value={values.password}
                       />
                       <span className="text-danger">
-                        {' '}
+                        {" "}
                         {errors.password && touched.password && errors.password}
                       </span>
                     </FormGroup>
 
                     <FormGroup>
                       <div role="group" aria-labelledby="my-radio-group">
-                        <label style={{ marginLeft: '1.6em' }}>
+                        <label style={{ marginLeft: "1.6em" }}>
                           للافراد
                           <Field
                             type="radio"
                             name="picked"
                             value="a"
-                            style={{ marginRight: '0.2em' }}
+                            style={{ marginRight: "0.2em" }}
                           />
                         </label>
                         <label>
@@ -291,7 +288,7 @@ function LoginForm() {
                             type="radio"
                             name="picked"
                             value="b"
-                            style={{ marginRight: '0.2em' }}
+                            style={{ marginRight: "0.2em" }}
                           />
                         </label>
                       </div>
@@ -300,27 +297,19 @@ function LoginForm() {
                     <FormGroup>
                       <Input
                         bsSize="lg"
-                        placeholder={
-                          values.picked === 'a'
-                            ? 'الرقم القومي'
-                            : 'رقم السجل التجاري'
-                        }
+                        placeholder={values.picked === "a" ? "الرقم القومي" : "رقم السجل التجاري"}
                         name="number"
                         type="text"
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
                       <span className="text-danger">
-                        {' '}
+                        {" "}
                         {errors.number && touched.number && errors.number}
                       </span>
                     </FormGroup>
 
-                    <Button
-                      className="default-button"
-                      type="submit"
-                      disabled={isSubmitting}
-                    >
+                    <Button className="default-button" type="submit" disabled={isSubmitting}>
                       فتح حساب جديد ..
                     </Button>
                   </Form>
@@ -333,11 +322,7 @@ function LoginForm() {
     } else {
       return (
         <>
-          <OptCode
-            checkCode={checkCode}
-            phoneNumber={phoneNumber}
-            OTP_TOKEN={OTP_TOKEN}
-          />
+          <OptCode checkCode={checkCode} phoneNumber={phoneNumber} OTP_TOKEN={OTP_TOKEN} />
         </>
       );
     }
@@ -355,20 +340,20 @@ function LoginForm() {
               </div>
               <div className="login-form pr-20">
                 <Formik
-                  initialValues={{ email: '', password: '' }}
+                  initialValues={{ email: "", password: "" }}
                   validate={(values) => {
                     const errors = {};
 
                     if (!values.email) {
-                      errors.email = 'مطلوب';
+                      errors.email = "مطلوب";
                     } else if (!validate.isEmailValide(values.email)) {
                       if (!validate.isMobileValide(values.email)) {
-                        errors.email = 'من فضلك ادخل الرقم او البريد الصحيح';
+                        errors.email = "من فضلك ادخل الرقم او البريد الصحيح";
                       }
                     }
 
                     if (!values.password) {
-                      errors.password = 'مطلوب';
+                      errors.password = "مطلوب";
                     }
                     return errors;
                   }}
@@ -407,10 +392,8 @@ function LoginForm() {
                           onBlur={handleBlur}
                         />
                         <span className="text-danger">
-                          {' '}
-                          {errors.password &&
-                            touched.password &&
-                            errors.password}
+                          {" "}
+                          {errors.password && touched.password && errors.password}
                         </span>
                       </FormGroup>
 

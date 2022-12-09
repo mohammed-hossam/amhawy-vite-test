@@ -1,15 +1,9 @@
-import React from 'react';
+import React from "react";
 // javascript plugin used to create scrollbars on windows
-import {
-  Route,
-  Switch,
-  useLocation,
-  Redirect,
-  NavLink,
-} from 'react-router-dom';
+import { Route, Routes, useLocation, Navigate, NavLink } from "react-router-dom";
 
-import Header from 'components/client/Header/Header';
-import Footer from 'components/client/Footer/Footer';
+import Header from "components/client/Header/Header";
+import Footer from "components/client/Footer/Footer";
 /**
  * import CSS files here
  */
@@ -19,7 +13,7 @@ import Footer from 'components/client/Footer/Footer';
 // import 'assets/client/assets/css/responsive.css';
 // import 'assets/client/assets/css/rtl.css';
 // import 'assets/client/assets/fonts/font.css';
-import routes from '../routes/client.routes';
+import routes from "../routes/client.routes";
 // import UserStore from 'contexts/user';
 // export const UserContext = React.createContext();
 
@@ -43,7 +37,7 @@ function Client(props) {
                 to="/client"
                 className="list-group-item list-group-item-action"
                 activeClassName="activeRoute"
-                activeStyle={{ fontWeight: 'bold' }}
+                activeStyle={{ fontWeight: "bold" }}
               >
                 حسابي
               </NavLink>
@@ -51,7 +45,7 @@ function Client(props) {
                 to="/client/requests"
                 className="list-group-item list-group-item-action"
                 activeClassName="activeRoute"
-                activeStyle={{ fontWeight: 'bold' }}
+                activeStyle={{ fontWeight: "bold" }}
               >
                 المحاصيل المكودة
               </NavLink>
@@ -59,7 +53,7 @@ function Client(props) {
                 to="/client/waiting"
                 className="list-group-item list-group-item-action"
                 activeClassName="activeRoute"
-                activeStyle={{ fontWeight: 'bold' }}
+                activeStyle={{ fontWeight: "bold" }}
               >
                 طلبات الإنتظار
                 {/* <i className="fas fa-paper-plane mr-3"></i> */}
@@ -69,7 +63,7 @@ function Client(props) {
                 to="/client/farms"
                 className="list-group-item list-group-item-action"
                 activeClassName="activeRoute"
-                activeStyle={{ fontWeight: 'bold' }}
+                activeStyle={{ fontWeight: "bold" }}
               >
                 المزارع المكودة
               </NavLink>
@@ -77,7 +71,7 @@ function Client(props) {
                 to="/client/code"
                 className="list-group-item list-group-item-action"
                 activeClassName="activeRoute"
-                activeStyle={{ fontWeight: 'bold' }}
+                activeStyle={{ fontWeight: "bold" }}
               >
                 طلب تكويد محصول
               </NavLink>
@@ -94,7 +88,7 @@ function Client(props) {
                 to="/client/mail"
                 className="list-group-item list-group-item-action"
                 activeClassName="activeRoute"
-                activeStyle={{ fontWeight: 'bold' }}
+                activeStyle={{ fontWeight: "bold" }}
               >
                 البريد الخاص
                 {/* <i className="fas fa-paper-plane mr-3"></i> */}
@@ -103,7 +97,7 @@ function Client(props) {
             </div>
           </div>
           <div className="col-sm-10">
-            <Switch>
+            <Routes>
               {routes.map((prop, key) => {
                 return (
                   <Route
@@ -114,8 +108,8 @@ function Client(props) {
                   />
                 );
               })}
-              <Redirect to="/404" />
-            </Switch>
+              <Navigate to="/404" />
+            </Routes>
           </div>
         </div>
       </div>

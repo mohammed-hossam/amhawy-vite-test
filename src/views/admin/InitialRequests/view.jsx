@@ -12,25 +12,25 @@ import {
   Badge,
   Col,
   Spinner,
-} from 'reactstrap';
-import { fetchData } from 'services/api.service';
-import { useParams, useHistory, Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+} from "reactstrap";
+import { fetchData } from "services/api.service";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 // import Map from './map/Map';
-import styles from './requests.module.css';
-import axios from 'services/axios.inercept';
-import axiosApiInstance from 'services/axios.inercept';
+import styles from "./requests.module.css";
+import axios from "services/axios.inercept";
+import axiosApiInstance from "services/axios.inercept";
 
 function View() {
-  const history = useHistory();
+  const history = useNavigate();
   let { id } = useParams();
   const [Request, setRequest] = useState({});
   // console.log(Request);
   // const [varieties, setVarieties] = useState();
   // console.log(varieties);
   // const [cropId, setCropId] = useState();
-  const [color, setColor] = useState('warning');
+  const [color, setColor] = useState("warning");
   const [loading, setLoading] = useState(true);
 
   // function getVarieties() {
@@ -52,7 +52,7 @@ function View() {
   // }
 
   function init() {
-    return fetchData('/initial/' + id, 'get')
+    return fetchData("/initial/" + id, "get")
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
@@ -63,8 +63,8 @@ function View() {
           admin: data.adminData,
         });
         // setCropId(data.data.crop._id);
-        if (data.data?.status === 'accept') setColor('success');
-        if (data.data?.status === 'reject') setColor('danger');
+        if (data.data?.status === "accept") setColor("success");
+        if (data.data?.status === "reject") setColor("danger");
         return data.data;
       })
 
@@ -87,7 +87,7 @@ function View() {
       .then((res) => {
         // console.log(res);
         toast.success(`تم حذف الطلب / ${code}`);
-        history.push('/admin/initialRequests');
+        history.push("/admin/initialRequests");
       })
       .catch((e) => {
         console.error(e);
@@ -185,15 +185,13 @@ function View() {
       {loading === true && <Spinner animation="border" role="status"></Spinner>}
       <Toaster />
       <div className="content text-right">
-        {Request?.cancelled === true && (
-          <Alert color="danger">تم حذف الطلب من مقدم الطلب</Alert>
-        )}
+        {Request?.cancelled === true && <Alert color="danger">تم حذف الطلب من مقدم الطلب</Alert>}
         <Row>
           <Col sm="4">
             <Card body color={color} inverse>
               <CardTitle tag="h5">
                 {/* <i className="far fa-calendar" /> */}
-                {new Date(Request?.createdAt).toLocaleString('ar-EG')}
+                {new Date(Request?.createdAt).toLocaleString("ar-EG")}
               </CardTitle>
             </Card>
           </Col>
@@ -235,29 +233,27 @@ function View() {
                   },
                 })
               }
-              style={{ marginBottom: '0.2em' }}
+              style={{ marginBottom: "0.2em" }}
             >
               تعديل الطلب
             </button>
             <button
               onClick={() => handleTakweedRequest(Request?._id, Request?.code)}
               className={styles.request_btn}
-              style={{ marginBottom: '0.2em' }}
+              style={{ marginBottom: "0.2em" }}
             >
               قبول الطلب
             </button>
             <Link
-              to={{
-                pathname: `/admin/initialRequests/uploadedPics`,
-                state: {
-                  code: Request?.code,
-                },
+              to={`/admin/initialRequests/uploadedPics`}
+              state={{
+                code: Request?.code,
               }}
               className={styles.request_btn}
             >
               <button
                 className={styles.request_btn}
-                style={{ border: 'none', width: '100%' }}
+                style={{ border: "none", width: "100%" }}
                 // onClick={() => handlePics(Request?.code)}
                 // className="float-left"
               >
@@ -271,8 +267,8 @@ function View() {
               onClick={() => reject(Request?._id, Request?.code)}
               color="danger"
               style={{
-                height: '80%',
-                margin: '0',
+                height: "80%",
+                margin: "0",
               }}
             >
               <i className="far fa-times-circle ml-2" />
@@ -342,17 +338,9 @@ function View() {
                 <ListGroupItem>
                   <span> الموقع / </span>
                   <span>
-                    <Badge color="dark">
-                      {Request?.farm?.location?.governorate?.name_ar}
-                    </Badge>
-                    /
-                    <Badge color="danger">
-                      {Request?.farm?.location?.center?.name_ar}
-                    </Badge>
-                    /
-                    <Badge color="primary">
-                      {Request?.farm?.location?.hamlet?.name_ar}
-                    </Badge>
+                    <Badge color="dark">{Request?.farm?.location?.governorate?.name_ar}</Badge>/
+                    <Badge color="danger">{Request?.farm?.location?.center?.name_ar}</Badge>/
+                    <Badge color="primary">{Request?.farm?.location?.hamlet?.name_ar}</Badge>
                   </span>
                 </ListGroupItem>
                 <ListGroupItem>

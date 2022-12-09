@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Formik, Form, FieldArray, Field } from 'formik';
-import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap';
-import axiosApiInstance from 'services/axios.inercept';
-import styles from './addRequest.module.css';
-import { useHistory, useLocation } from 'react-router';
-import FormikComponent from './FormikComponent';
-import axios from 'services/axios.inercept';
-import { toast, Toaster } from 'react-hot-toast';
+import React, { useEffect, useState } from "react";
+import { Formik, Form, FieldArray, Field } from "formik";
+import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
+import axiosApiInstance from "services/axios.inercept";
+import styles from "./addRequest.module.css";
+import { useNavigate, useLocation } from "react-router";
+import FormikComponent from "./FormikComponent";
+import axios from "services/axios.inercept";
+import { toast, Toaster } from "react-hot-toast";
 
 // import FormikComp from './formikComp';
 // import * as Yup from 'yup';
@@ -20,11 +20,11 @@ const Edit = () => {
   const [centers, setCenters] = useState([]);
   const [hamlets, setHamlets] = useState([]);
   const location = useLocation();
-  const history = useHistory();
+  const history = useNavigate();
   //   console.log(location.state);
 
   useEffect(() => {
-    axiosApiInstance.get('/client/master/locations').then((data) => {
+    axiosApiInstance.get("/client/master/locations").then((data) => {
       // console.log(data);
       setGovernorates(data.data.data);
     });
@@ -67,11 +67,8 @@ const Edit = () => {
       .get(`/admin/crop/${location.state.cropId}`)
       .then((response) => {
         // console.log(response);
-        const sortedVarities = response.data.data.varieties.sort(function (
-          a,
-          b
-        ) {
-          return a.name_ar.localeCompare(b.name_ar, ['ar']);
+        const sortedVarities = response.data.data.varieties.sort(function (a, b) {
+          return a.name_ar.localeCompare(b.name_ar, ["ar"]);
         });
         setVarieties(sortedVarities);
       })
@@ -81,10 +78,10 @@ const Edit = () => {
   }
 
   function getCrops() {
-    axiosApiInstance.get('/client/master/crops').then((data) => {
+    axiosApiInstance.get("/client/master/crops").then((data) => {
       setCrops(
         data.data.data?.sort(function (a, b) {
-          return a.name_ar.localeCompare(b.name_ar, ['ar']);
+          return a.name_ar.localeCompare(b.name_ar, ["ar"]);
         })
       );
     });
@@ -97,7 +94,7 @@ const Edit = () => {
         crops
           .find((x) => x._id === cropId)
           ?.varieties?.sort(function (a, b) {
-            return a.name_ar.localeCompare(b.name_ar, ['ar']);
+            return a.name_ar.localeCompare(b.name_ar, ["ar"]);
           })
       );
     } else {
@@ -122,11 +119,11 @@ const Edit = () => {
           parts: el.parts,
           area: {
             value: el.area,
-            unit: 'فدان',
+            unit: "فدان",
           },
           quantity: {
             value: el.quantity,
-            unit: 'طن',
+            unit: "طن",
           },
           picking: {
             from: el.picking.from,
@@ -141,18 +138,16 @@ const Edit = () => {
         .put(`/admin/initial/${location.state.requestId}`, finalValues)
         .then((response) => {
           // console.log(response);
-          toast.success('تم التعديل بنجاح');
+          toast.success("تم التعديل بنجاح");
           resetForm();
           setSubmitting(false);
-          history.push(
-            `/admin/initialRequests/view/${location.state.requestId}`
-          );
+          history.push(`/admin/initialRequests/view/${location.state.requestId}`);
           // toggleRegistrationSuccess();
         })
         .catch((e) => {
           setSubmitting(false);
           console.error(e.response?.data.message);
-          toast.error('حدث خطأ');
+          toast.error("حدث خطأ");
         });
     }
 
@@ -176,21 +171,11 @@ const Edit = () => {
         onSubmit={handleSubmitForm}
         enableReinitialize
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          isSubmitting,
-        }) => {
+        {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => {
           return (
             <>
-              <Form className={[styles.form].join(' ')}>
-                <h2
-                  className={[styles.subHeader].join(' ')}
-                  style={{ marginBottom: '0.5em' }}
-                >
+              <Form className={[styles.form].join(" ")}>
+                <h2 className={[styles.subHeader].join(" ")} style={{ marginBottom: "0.5em" }}>
                   بيانات المزرعة
                 </h2>
 
@@ -198,15 +183,12 @@ const Edit = () => {
                   {/* farmName */}
                   <Col md={4}>
                     <FormGroup>
-                      <Label
-                        htmlFor="farmName"
-                        className={[styles.label].join(' ')}
-                      >
+                      <Label htmlFor="farmName" className={[styles.label].join(" ")}>
                         اسم المزرعة
                       </Label>
                       <Input
                         id="farmName"
-                        className={[styles.input].join(' ')}
+                        className={[styles.input].join(" ")}
                         placeholder="اسم المزرعة "
                         name="farmName"
                         type="text"
@@ -222,15 +204,12 @@ const Edit = () => {
                   {/* ownerName */}
                   <Col md={4}>
                     <FormGroup>
-                      <Label
-                        htmlFor="ownerName"
-                        className={[styles.label].join(' ')}
-                      >
+                      <Label htmlFor="ownerName" className={[styles.label].join(" ")}>
                         المسؤل او المالك
                       </Label>
                       <Input
                         id="ownerName"
-                        className={[styles.input].join(' ')}
+                        className={[styles.input].join(" ")}
                         placeholder="المسؤل او المالك"
                         name="ownerName"
                         type="text"
@@ -239,24 +218,19 @@ const Edit = () => {
                         value={values.ownerName}
                       />
                       <span className="text-danger">
-                        {errors.ownerName &&
-                          touched.ownerName &&
-                          errors.ownerName}
+                        {errors.ownerName && touched.ownerName && errors.ownerName}
                       </span>
                     </FormGroup>
                   </Col>
                   {/* phoneNumber */}
                   <Col md={4}>
                     <FormGroup>
-                      <Label
-                        htmlFor="phoneNumber"
-                        className={[styles.label].join(' ')}
-                      >
+                      <Label htmlFor="phoneNumber" className={[styles.label].join(" ")}>
                         رقم التيليفون
                       </Label>
                       <Input
                         id="phoneNumber"
-                        className={[styles.input].join(' ')}
+                        className={[styles.input].join(" ")}
                         placeholder="رقم التيليفون"
                         name="phoneNumber"
                         type="number"
@@ -265,9 +239,7 @@ const Edit = () => {
                         value={values.phoneNumber}
                       />
                       <span className="text-danger">
-                        {errors.phoneNumber &&
-                          touched.phoneNumber &&
-                          errors.phoneNumber}
+                        {errors.phoneNumber && touched.phoneNumber && errors.phoneNumber}
                       </span>
                     </FormGroup>
                   </Col>
@@ -277,15 +249,12 @@ const Edit = () => {
                   {/* address */}
                   <Col md={6}>
                     <FormGroup>
-                      <Label
-                        htmlFor="address"
-                        className={[styles.label].join(' ')}
-                      >
+                      <Label htmlFor="address" className={[styles.label].join(" ")}>
                         أقرب علامه مميزة
                       </Label>
                       <Input
                         id="address"
-                        className={[styles.input].join(' ')}
+                        className={[styles.input].join(" ")}
                         placeholder="أقرب علامه مميزة"
                         name="address"
                         type="text"
@@ -301,15 +270,12 @@ const Edit = () => {
                   {/* crop */}
                   <Col md={6}>
                     <FormGroup>
-                      <Label
-                        htmlFor="crop"
-                        className={[styles.label].join(' ')}
-                      >
+                      <Label htmlFor="crop" className={[styles.label].join(" ")}>
                         المحصول
                       </Label>
                       <Input
                         id="crop"
-                        className={[styles.input].join(' ')}
+                        className={[styles.input].join(" ")}
                         placeholder="المحصول"
                         name="crop"
                         type="select"
@@ -350,15 +316,12 @@ const Edit = () => {
                   {/* governorate */}
                   <Col md={4}>
                     <FormGroup>
-                      <Label
-                        htmlFor="governorate"
-                        className={[styles.label].join(' ')}
-                      >
+                      <Label htmlFor="governorate" className={[styles.label].join(" ")}>
                         المحافظة
                       </Label>
                       <Input
                         id="governorate"
-                        className={[styles.input].join(' ')}
+                        className={[styles.input].join(" ")}
                         //     placeholder="المحافظة"
                         name="governorate"
                         type="select"
@@ -380,24 +343,19 @@ const Edit = () => {
                       </Input>
 
                       <span className="text-danger">
-                        {errors.governorate &&
-                          touched.governorate &&
-                          errors.governorate}
+                        {errors.governorate && touched.governorate && errors.governorate}
                       </span>
                     </FormGroup>
                   </Col>
                   {/* center */}
                   <Col md={4}>
                     <FormGroup>
-                      <Label
-                        htmlFor="center"
-                        className={[styles.label].join(' ')}
-                      >
+                      <Label htmlFor="center" className={[styles.label].join(" ")}>
                         المركز
                       </Label>
                       <Input
                         id="center"
-                        className={[styles.input].join(' ')}
+                        className={[styles.input].join(" ")}
                         name="center"
                         type="select"
                         onChange={(e) => {
@@ -421,15 +379,12 @@ const Edit = () => {
                   {/* hamlet */}
                   <Col md={4}>
                     <FormGroup>
-                      <Label
-                        htmlFor="hamlet"
-                        className={[styles.label].join(' ')}
-                      >
+                      <Label htmlFor="hamlet" className={[styles.label].join(" ")}>
                         الوحدة المحلية
                       </Label>
                       <Input
                         id="hamlet"
-                        className={[styles.input].join(' ')}
+                        className={[styles.input].join(" ")}
                         name="hamlet"
                         type="select"
                         onChange={(e) => {
@@ -454,10 +409,7 @@ const Edit = () => {
                   </Col>
                 </Row>
 
-                <h2
-                  className={[styles.subHeader].join(' ')}
-                  style={{ marginTop: '2em' }}
-                >
+                <h2 className={[styles.subHeader].join(" ")} style={{ marginTop: "2em" }}>
                   بيانات المحصول
                 </h2>
 
@@ -469,7 +421,7 @@ const Edit = () => {
                         <div key={index}>
                           <FormikComponent index={index} crops={varieties} />
 
-                          <hr className={[styles.line].join(' ')} />
+                          <hr className={[styles.line].join(" ")} />
                         </div>
                       ))}
                     </div>
@@ -479,7 +431,7 @@ const Edit = () => {
                 {/* submit btn */}
                 <Button
                   type="submit"
-                  className={[styles.submitBtn].join(' ')}
+                  className={[styles.submitBtn].join(" ")}
                   disabled={isSubmitting}
                 >
                   تعديل

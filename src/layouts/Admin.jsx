@@ -1,6 +1,6 @@
 import React from "react";
 // javascript plugin used to create scrollbars on windows
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 /**
  * Load admin CSS
@@ -31,11 +31,24 @@ function Dashboard(props) {
     <div className="wrapper">
       <div className="main-panel" ref={mainPanel} style={{ minHeight: "100vh" }}>
         <DemoNavbar {...props} />
-        <Switch>
+        <Routes>
           {routes.map((prop, key) => {
-            return <Route path={prop.layout + prop.path} component={prop.component} key={key} />;
+            const Component = prop.component;
+            return <Route path={prop.layout + prop.path} element={<Component />} key={key} exact />;
           })}
-        </Switch>
+          {/* <Route path="*" element={<Navigate to="/404" replace />} /> */}
+          {/* <Navigate
+            // from={props.location}
+            // exact
+            // to="/login"
+            to={{
+              pathname: "/404",
+              state: {
+                from: props.location,
+              },
+            }}
+          /> */}
+        </Routes>
         <Footer fluid />
       </div>
       <Sidebar {...props} routes={routes} bgColor={backgroundColor} activeColor={activeColor} />

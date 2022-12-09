@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { useHistory } from 'react-router';
-import { Button, Modal, ModalBody, ModalHeader, Spinner } from 'reactstrap';
-import axiosApiInstance from 'services/axios.inercept';
-import Details from './Details';
+import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { Button, Modal, ModalBody, ModalHeader, Spinner } from "reactstrap";
+import axiosApiInstance from "services/axios.inercept";
+import Details from "./Details";
 
 function Index(props) {
-  const history = useHistory();
+  const history = useNavigate();
 
   const [modalOpen, setModalOpen] = useState(false);
   const toggle = () => setModalOpen(!modalOpen);
@@ -44,7 +44,7 @@ function Index(props) {
 
   useEffect(() => {
     axiosApiInstance
-      .get('/client/initial')
+      .get("/client/initial")
       .then((response) => {
         console.log(response);
         if (response.data.length > 0) {
@@ -52,7 +52,7 @@ function Index(props) {
           setData(response.data.data);
         } else {
           setLoading(false);
-          setErr('يجب ادخال محصول اولا');
+          setErr("يجب ادخال محصول اولا");
         }
       })
       .catch((e) => {
@@ -73,9 +73,7 @@ function Index(props) {
         <div className="text-center">
           <p>{err}</p>
 
-          <Button onClick={() => history.push('/client/code')}>
-            ادخال محصول
-          </Button>
+          <Button onClick={() => history.push("/client/code")}>ادخال محصول</Button>
         </div>
       )}
 
@@ -95,7 +93,7 @@ function Index(props) {
           </thead>
           <tbody>
             {data?.map((request, index) => (
-              <tr style={{ cursor: 'pointer' }} key={index + 1}>
+              <tr style={{ cursor: "pointer" }} key={index + 1}>
                 <th scope="row">{index + 1}</th>
                 <td
                   onClick={() => {
@@ -153,7 +151,7 @@ function Index(props) {
 
       <Modal
         className="custom-map-modal modal-lg"
-        style={{ width: 'fit-content', maxWidth: '1200px' }}
+        style={{ width: "fit-content", maxWidth: "1200px" }}
         aria-labelledby="contained-modal-title-vcenter"
         isOpen={modalOpen}
         toggle={toggle}

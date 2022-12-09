@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { Route, Navigate } from "react-router-dom";
 
 const ProtectedClientRoute = ({ component: Component, user, ...rest }) => {
   return (
@@ -7,17 +7,17 @@ const ProtectedClientRoute = ({ component: Component, user, ...rest }) => {
       {...rest}
       render={(props) => {
         if (
-          localStorage.getItem('token') &&
-          localStorage.getItem('user') &&
-          localStorage.getItem('_r') === '954VC58412cH1M'
+          localStorage.getItem("token") &&
+          localStorage.getItem("user") &&
+          localStorage.getItem("_r") === "954VC58412cH1M"
         ) {
           // console.log('welcomeee');
           return <Component {...rest} {...props} />;
         } else {
           return (
-            <Redirect
+            <Navigate
               to={{
-                pathname: '/login',
+                pathname: "/login",
                 state: {
                   from: props.location,
                 },

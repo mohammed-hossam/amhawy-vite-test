@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'services/axios.inercept';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "services/axios.inercept";
+import { Link, useNavigate } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -16,26 +16,26 @@ import {
   ModalHeader,
   Spinner,
   Input,
-} from 'reactstrap';
-import SearchForm from './Search';
-import toast, { Toaster } from 'react-hot-toast';
+} from "reactstrap";
+import SearchForm from "./Search";
+import toast, { Toaster } from "react-hot-toast";
 
 function Tables() {
   const [requests, setRequests] = useState([]);
   const [page, setPage] = useState(1);
-  const [currentQuery, setCurrentQuery] = useState('');
+  const [currentQuery, setCurrentQuery] = useState("");
   const [searchPage, setSearchPage] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const toggle = () => setModalOpen(!modalOpen);
 
-  let history = useHistory();
+  let history = useNavigate();
   const [loading, setLoading] = useState(true);
 
   function load(page = 1, query = currentQuery) {
     setLoading(true);
     return axios
-      .get('/admin/initial' + query, {
-        headers: { sortBy: 'createdAt', sortValue: -1, page },
+      .get("/admin/initial" + query, {
+        headers: { sortBy: "createdAt", sortValue: -1, page },
       })
       .then((data) => {
         // console.log(data);
@@ -123,20 +123,20 @@ function Tables() {
   }
 
   function printStatus(status) {
-    if (status === 'inprogress') {
-      return 'الطلب تحت المراجعة';
+    if (status === "inprogress") {
+      return "الطلب تحت المراجعة";
     }
-    if (status === 'accept') {
-      return 'تمت الموافقه علي الطلب';
+    if (status === "accept") {
+      return "تمت الموافقه علي الطلب";
     }
-    if (status === 'reject') {
-      return 'تم رفض الطلب';
+    if (status === "reject") {
+      return "تم رفض الطلب";
     }
-    return '';
+    return "";
   }
 
   const handelSearch = (values) => {
-    let query = '?';
+    let query = "?";
     //toggle()
     if (values.code.length > 0) {
       query = query + `code=${values.code}&`;
@@ -175,9 +175,7 @@ function Tables() {
   return (
     <>
       <div className="content">
-        {loading === true && (
-          <Spinner animation="border" role="status"></Spinner>
-        )}
+        {loading === true && <Spinner animation="border" role="status"></Spinner>}
         <Row>
           <Toaster />
           <Col md="12">
@@ -188,8 +186,8 @@ function Tables() {
                 </Button>
                 <Button
                   onClick={() => {
-                    load(1, '');
-                    setCurrentQuery('');
+                    load(1, "");
+                    setCurrentQuery("");
                   }}
                   color="info"
                   className="float-right"
@@ -204,26 +202,26 @@ function Tables() {
                     color="dark"
                     className="float-right"
                     style={{
-                      display: 'inline-block',
-                      width: '5rem',
-                      paddingLeft: '0',
-                      paddingRight: '0',
-                      paddingTop: '0',
-                      paddingBottom: '0',
+                      display: "inline-block",
+                      width: "5rem",
+                      paddingLeft: "0",
+                      paddingRight: "0",
+                      paddingTop: "0",
+                      paddingBottom: "0",
                     }}
                     type="button"
                   >
                     <Input
                       style={{
-                        display: 'inline-block',
-                        color: 'white',
-                        backgroundColor: 'transparent',
-                        width: '100%',
-                        height: '100%',
-                        paddingBottom: '11px',
-                        paddingTop: '8px',
-                        paddingRight: '35px',
-                        border: 'none',
+                        display: "inline-block",
+                        color: "white",
+                        backgroundColor: "transparent",
+                        width: "100%",
+                        height: "100%",
+                        paddingBottom: "11px",
+                        paddingTop: "8px",
+                        paddingRight: "35px",
+                        border: "none",
                       }}
                       placeholder={page}
                       className="postListPageSearch shadow-none"
@@ -280,29 +278,24 @@ function Tables() {
                   </thead>
                   <tbody>
                     {requests?.map((request, index) => (
-                      <Link
-                        className="linkStyle"
-                        to={{
-                          pathname: `/admin/initialRequests/view/${request._id}`,
-                        }}
-                      >
+                      <Link className="linkStyle" to={`/admin/initialRequests/view/${request._id}`}>
                         <tr
                           key={index}
-                          style={{ cursor: 'pointer' }}
+                          style={{ cursor: "pointer" }}
                           // onClick={() => viewItem(request._id)}
                           className={
-                            'text-' +
-                            (request.status === 'reject'
-                              ? 'danger'
-                              : request.status === 'accept'
-                              ? 'success'
-                              : 'default')
+                            "text-" +
+                            (request.status === "reject"
+                              ? "danger"
+                              : request.status === "accept"
+                              ? "success"
+                              : "default")
                           }
                         >
                           <td>
                             {request?.cancelled === true && (
                               <span className="text-danger">
-                                <i className="far fa-times-circle" />{' '}
+                                <i className="far fa-times-circle" />{" "}
                               </span>
                             )}
                             {request.code}

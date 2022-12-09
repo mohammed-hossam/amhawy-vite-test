@@ -1,12 +1,12 @@
-import React from 'react';
-import axios from 'services/axios.inercept';
-import { Formik } from 'formik';
-import { useHistory } from 'react-router';
-import { Button, Form, FormGroup, Input } from 'reactstrap';
-import toast from 'react-hot-toast';
+import React from "react";
+import axios from "services/axios.inercept";
+import { Formik } from "formik";
+import { useNavigate } from "react-router";
+import { Button, Form, FormGroup, Input } from "reactstrap";
+import toast from "react-hot-toast";
 
 function OptCode({ checkCode, phoneNumber, OTP_TOKEN }) {
-  let history = useHistory();
+  let history = useNavigate();
 
   const handleOTPVerfyForm = (values, { setSubmitting }) => {
     setSubmitting(true);
@@ -20,17 +20,17 @@ function OptCode({ checkCode, phoneNumber, OTP_TOKEN }) {
         },
       })
       .then((response) => {
-        localStorage.setItem('token', response.data.accessToken);
-        localStorage.setItem('user', response.data.data.name);
-        localStorage.setItem('info', JSON.stringify(response.data.data));
-        localStorage.setItem('_r', '954VC58412cH1M');
-        toast.success('تسجيل عمليه الدخول بنجاح');
-        history.push('/resetPassword');
+        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("user", response.data.data.name);
+        localStorage.setItem("info", JSON.stringify(response.data.data));
+        localStorage.setItem("_r", "954VC58412cH1M");
+        toast.success("تسجيل عمليه الدخول بنجاح");
+        history.push("/resetPassword");
         // history.push('/client');
       })
       .catch((e) => {
         setSubmitting(false);
-        toast.error('خطا ... ');
+        toast.error("خطا ... ");
       });
   };
 
@@ -42,14 +42,14 @@ function OptCode({ checkCode, phoneNumber, OTP_TOKEN }) {
         </div>
         <div className="login-form">
           <Formik
-            initialValues={{ pincode: '' }}
+            initialValues={{ pincode: "" }}
             validate={(values) => {
               const errors = {};
               if (!values.pincode) {
-                errors.pincode = 'مطلوب';
+                errors.pincode = "مطلوب";
               }
               if (values.pincode.length < 6) {
-                errors.pincode = 'لايقل عن 6 ارقام';
+                errors.pincode = "لايقل عن 6 ارقام";
               }
 
               return errors;
@@ -77,16 +77,12 @@ function OptCode({ checkCode, phoneNumber, OTP_TOKEN }) {
                     onBlur={handleBlur}
                   />
                   <span className="text-danger">
-                    {' '}
+                    {" "}
                     {errors.pincode && touched.pincode && errors.pincode}
                   </span>
                 </FormGroup>
 
-                <Button
-                  className="default-button"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
+                <Button className="default-button" type="submit" disabled={isSubmitting}>
                   تحقق من الرمز
                 </Button>
               </Form>

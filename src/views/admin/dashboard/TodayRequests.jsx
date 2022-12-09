@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "services/api.service";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Card, CardBody, CardHeader, CardTitle, Table, Row, Col } from "reactstrap";
 function TodayRequests() {
@@ -17,7 +17,7 @@ function TodayRequests() {
       });
   }, []);
 
-  let history = useHistory();
+  let history = useNavigate();
   function viewItem(id) {
     history.push(`/admin/requests/view/${id}`);
   }

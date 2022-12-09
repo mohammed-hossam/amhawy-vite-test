@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
-import axios from 'services/axios.inercept';
-import './filter.css';
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import axios from "services/axios.inercept";
+import "./filter.css";
 function Filter({ setLoading, setParam, setPage }) {
   // const [topics, setTopics] = useState([]);
-  const [active, setActive] = useState('');
-  const [input, setInput] = useState('');
-  const history = useHistory();
+  const [active, setActive] = useState("");
+  const [input, setInput] = useState("");
+  const history = useNavigate();
   const inputField = useRef();
   const cashAllTopics = useRef([]);
   // console.log(cashAllTopics);
@@ -17,18 +17,18 @@ function Filter({ setLoading, setParam, setPage }) {
     if (input) {
       history.push(`/posts?search=${input}`);
       setLoading(true);
-      setInput('');
+      setInput("");
       inputField.current.blur();
       // console.log(inputField.current);
       // loadByTopic(1, null, input);
 
       //refactor
-      setParam({ name: 'search', value: input });
+      setParam({ name: "search", value: input });
     }
   }
 
   function load() {
-    axios.get('/client/topics').then((data) => {
+    axios.get("/client/topics").then((data) => {
       const allTopics = data.data.data;
       cashAllTopics.current = allTopics;
     });
@@ -43,7 +43,7 @@ function Filter({ setLoading, setParam, setPage }) {
   }, []);
 
   return (
-    <div className="sidebar-card sd-tag" style={{ padding: '0.8em 1.7em' }}>
+    <div className="sidebar-card sd-tag" style={{ padding: "0.8em 1.7em" }}>
       {/* search */}
       <div className="sidebar-card search-box">
         <form onSubmit={handleSubmit}>
@@ -59,7 +59,7 @@ function Filter({ setLoading, setParam, setPage }) {
               }}
               ref={inputField}
             />
-            <button className="btn" type="submit" style={{ padding: '1.2em' }}>
+            <button className="btn" type="submit" style={{ padding: "1.2em" }}>
               <i className="fas fa-search"></i>
             </button>
           </div>
@@ -71,7 +71,7 @@ function Filter({ setLoading, setParam, setPage }) {
         {cashAllTopics.current.map((el, index) => {
           return (
             <li
-              style={{ marginLeft: '1em', marginRight: '0' }}
+              style={{ marginLeft: "1em", marginRight: "0" }}
               key={index}
               onClick={() => {
                 // history.push(`/posts?topicId=${el._id}`);
@@ -87,7 +87,7 @@ function Filter({ setLoading, setParam, setPage }) {
                 // loadByTopic(1, el._id);
                 //refactor
                 setPage(1);
-                setParam({ name: 'topicId', value: el._id });
+                setParam({ name: "topicId", value: el._id });
               }}
             >
               <Link
@@ -95,7 +95,7 @@ function Filter({ setLoading, setParam, setPage }) {
                 //   backgroundColor: `${active === el._id ? '#3f9f42' : ''}`,
                 // }}
                 to={`/posts?topicId=${el._id}`}
-                className={`${active === el._id ? 'filterActive' : ''}`}
+                className={`${active === el._id ? "filterActive" : ""}`}
               >
                 {el.name}
               </Link>

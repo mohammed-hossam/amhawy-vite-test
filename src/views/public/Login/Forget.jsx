@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import toast, { Toaster } from 'react-hot-toast';
-import { Formik } from 'formik';
-import axios from 'services/axios.inercept';
+import toast, { Toaster } from "react-hot-toast";
+import { Formik } from "formik";
+import axios from "services/axios.inercept";
 // reactstrap components
-import { Button, FormGroup, Form, Input } from 'reactstrap';
-// import { useHistory } from 'react-router';
-import OptCode from './components/OptCode';
+import { Button, FormGroup, Form, Input } from "reactstrap";
+// import { useNavigate } from 'react-router';
+import OptCode from "./components/OptCode";
 
 function Forget() {
-  const OTP_TOKEN = 'TakweedFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ';
+  const OTP_TOKEN = "TakweedFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ";
   const [otpChecked, setOtpChecked] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [checkCode, setCheckCode] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [checkCode, setCheckCode] = useState("");
 
   React.useEffect(() => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    localStorage.removeItem('_r');
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("_r");
   }, []);
 
-  // let history = useHistory();
+  // let history = useNavigate();
 
   const handleRegisterSubmitForm = (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
     // resetForm();
     // console.log(values);
-    values.phone = '+2' + values.phone;
+    values.phone = "+2" + values.phone;
     axios
       .post(`/auth/resend/`, values, {
         headers: {
@@ -40,14 +40,14 @@ function Forget() {
           setPhoneNumber(response.data.phone);
           setCheckCode(response.data.checkCode);
           setOtpChecked(true);
-          toast.success('OTP sent to ' + response.data.phone);
+          toast.success("OTP sent to " + response.data.phone);
         } else {
-          toast.error('خطا ...');
+          toast.error("خطا ...");
         }
       })
       .catch((e) => {
         setSubmitting(false);
-        toast.error('خطا ...');
+        toast.error("خطا ...");
       });
   };
 
@@ -86,15 +86,15 @@ function Forget() {
             </div>
             <div className="login-form">
               <Formik
-                initialValues={{ phone: '' }}
+                initialValues={{ phone: "" }}
                 validate={(values) => {
                   const errors = {};
 
                   if (!values.phone) {
-                    errors.phone = 'مطلوب';
+                    errors.phone = "مطلوب";
                   }
                   if (isNaN(values.phone)) {
-                    errors.phone = 'ارقام فقط';
+                    errors.phone = "ارقام فقط";
                   }
 
                   return errors;
@@ -126,11 +126,7 @@ function Forget() {
                       </span>
                     </FormGroup>
 
-                    <Button
-                      className="default-button"
-                      type="submit"
-                      disabled={isSubmitting}
-                    >
+                    <Button className="default-button" type="submit" disabled={isSubmitting}>
                       إرسال الرقم ..
                     </Button>
                   </Form>
@@ -141,13 +137,7 @@ function Forget() {
         </>
       );
     } else {
-      return (
-        <OptCode
-          checkCode={checkCode}
-          phoneNumber={phoneNumber}
-          OTP_TOKEN={OTP_TOKEN}
-        />
-      );
+      return <OptCode checkCode={checkCode} phoneNumber={phoneNumber} OTP_TOKEN={OTP_TOKEN} />;
     }
   };
 

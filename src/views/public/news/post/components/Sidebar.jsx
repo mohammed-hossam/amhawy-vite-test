@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
-import { months } from 'utils/date/date';
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { months } from "utils/date/date";
 
 function Sidebar({ lastPosts, load, setLoading, tags }) {
   // console.log(lastPosts);
-  const [input, setInput] = useState('');
-  const history = useHistory();
+  const [input, setInput] = useState("");
+  const history = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,7 +30,7 @@ function Sidebar({ lastPosts, load, setLoading, tags }) {
                   setInput(e.target.value);
                 }}
               />
-              <button class="btn" type="submit" style={{ padding: '1.2em' }}>
+              <button class="btn" type="submit" style={{ padding: "1.2em" }}>
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -54,7 +54,7 @@ function Sidebar({ lastPosts, load, setLoading, tags }) {
                     load(el._id);
                   }}
                 >
-                  <img src={el.image} alt="img" style={{ width: '6rem' }} />
+                  <img src={el.image} alt="img" style={{ width: "6rem" }} />
                 </Link>
                 <h5>
                   <Link
@@ -69,20 +69,19 @@ function Sidebar({ lastPosts, load, setLoading, tags }) {
                       // overflow: 'hidden',
                       // textOverflow: 'ellipsis',
                       // maxWidth: '20ch',
-                      display: '-webkit-box',
-                      WebkitBoxOrient: 'vertical',
-                      WebkitLineClamp: '2',
-                      lineClamp: '2',
-                      overflow: 'hidden',
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: "2",
+                      lineClamp: "2",
+                      overflow: "hidden",
                     }}
                   >
                     {el.title}
                   </Link>
                 </h5>
                 <p>
-                  <i className="far fa-calendar-alt"></i>{' '}
-                  {day.toLocaleString('ar-EG')}-{months[month]}-
-                  {year.toLocaleString('ar-EG').replace(/٬/g, '')}
+                  <i className="far fa-calendar-alt"></i> {day.toLocaleString("ar-EG")}-
+                  {months[month]}-{year.toLocaleString("ar-EG").replace(/٬/g, "")}
                 </p>
               </div>
             );
@@ -91,10 +90,10 @@ function Sidebar({ lastPosts, load, setLoading, tags }) {
 
         <div className="sidebar-card sd-tag">
           <h3>الاكثر انتشارا</h3>
-          <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5em' }}>
+          <ul style={{ display: "flex", flexWrap: "wrap", gap: "0.5em" }}>
             {tags.map((el) => {
               return (
-                <li style={{ margin: '0' }}>
+                <li style={{ margin: "0" }}>
                   <Link to={`/posts?search=${el}`}>{el}</Link>
                 </li>
               );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 // reactstrap components
 import {
   Card,
@@ -12,14 +12,14 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-} from 'reactstrap';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import MessageForm from './MessageForm';
+} from "reactstrap";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import MessageForm from "./MessageForm";
 
-import { useHistory } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
-import axios from 'services/axios.inercept';
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "services/axios.inercept";
 function View() {
   let { id } = useParams();
   const [user, setUser] = useState({});
@@ -27,13 +27,13 @@ function View() {
   const toggle = () => setModalOpen(!modalOpen);
 
   useEffect(() => {
-    axios.get('/admin/user/' + id).then((data) => setUser(data.data));
+    axios.get("/admin/user/" + id).then((data) => setUser(data.data));
     // console.log(user);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // console.log(user);
-  let history = useHistory();
+  let history = useNavigate();
 
   function viewItem(id) {
     history.push(`/admin/requests/view/${id}`);
@@ -61,10 +61,7 @@ function View() {
           <Col md="3">
             <Card className="card-user">
               <div className="image">
-                <img
-                  alt="bg-header"
-                  src="/assets/images/admin-users/header.jpg"
-                />
+                <img alt="bg-header" src="/assets/images/admin-users/header.jpg" />
               </div>
               <CardBody>
                 <div className="author">
@@ -76,9 +73,7 @@ function View() {
                     />
                     <h6 className="title">{user?.data?.name}</h6>
                   </a>
-                  <p className="description">
-                    {user?.data?.phone.substring(2, 13)}
-                  </p>
+                  <p className="description">{user?.data?.phone.substring(2, 13)}</p>
                   <p className="description">{user?.data?.email}</p>
                   <p className="description">{user?.data?.nationalId}</p>
                   <p className="description">{user?.data?.tradeId}</p>
@@ -168,25 +163,17 @@ function View() {
                   </thead>
                   <tbody>
                     {user?.requests?.map((req, index) => (
-                      <tr
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => viewItem(req._id)}
-                      >
+                      <tr style={{ cursor: "pointer" }} onClick={() => viewItem(req._id)}>
                         <td>
                           {req?.cancelled === true && (
                             <span className="text-danger">
-                              {' '}
-                              <i className="far fa-times-circle" />{' '}
+                              {" "}
+                              <i className="far fa-times-circle" />{" "}
                             </span>
                           )}
                           {req.code}
                         </td>
-                        <td
-                          className={
-                            'text-' +
-                            (req.status === 'accept' ? 'success' : 'danger')
-                          }
-                        >
+                        <td className={"text-" + (req.status === "accept" ? "success" : "danger")}>
                           {req.status}
                         </td>
                         <td>{req.farm.name}</td>
@@ -205,7 +192,7 @@ function View() {
 
       <Modal isOpen={modalOpen} toggle={toggle} fade={false}>
         <ModalHeader toggle={toggle}>
-          {'إرسال رساله شخصيه الي المستخدم '}
+          {"إرسال رساله شخصيه الي المستخدم "}
           {user?.data?.name}
         </ModalHeader>
         <ModalBody>

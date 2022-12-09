@@ -4,25 +4,20 @@
 
 import React from "react";
 // reactstrap components
- 
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import routes from "./routes";
- 
+
 function Tables() {
   return (
     <>
-      <Switch>
+      <Routes>
         {routes.map((prop, key) => {
           return (
-            <Route exact
-              path={prop.layout + prop.path}
-              component={prop.component}
-              key={key}
-            />
+            <Route exact path={prop.layout + prop.path} component={prop.component} key={key} />
           );
         })}
-      </Switch>
+      </Routes>
     </>
   );
 }
