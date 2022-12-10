@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'services/axios.inercept';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "services/axios.inercept";
 import {
   Card,
   CardHeader,
@@ -13,10 +13,10 @@ import {
   ModalHeader,
   Row,
   Col,
-} from 'reactstrap';
-import AddForm from './AddForm';
-import './crops.css';
-import toast, { Toaster } from 'react-hot-toast';
+} from "reactstrap";
+import AddForm from "./AddForm";
+import "./crops.css";
+import toast, { Toaster } from "react-hot-toast";
 
 const VarietiesList = () => {
   const [varieties, setVarieties] = useState([]);
@@ -46,17 +46,17 @@ const VarietiesList = () => {
       .put(`/admin/crop/${id}`, { varieties: newList })
       .then((response) => {
         setVarieties(newList);
-        toast.success('تم الحذف بنجاح ');
+        toast.success("تم الحذف بنجاح ");
         // console.log('response', response)
       })
       .catch((e) => {
         console.error(e);
-        toast.error('حدث خطأ');
+        toast.error("حدث خطأ");
       });
   };
 
   useEffect(() => {
-    return axios.get(`admin/crop/${id}`).then((data) => {
+    axios.get(`admin/crop/${id}`).then((data) => {
       // console.log('varieties data', data.data.data.varieties)
       setVarieties(data.data.data.varieties);
       setCrops(data.data.data);
@@ -71,9 +71,7 @@ const VarietiesList = () => {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">
-                  الاصناف الرئيسية لمحصول ال{crops.name_ar}
-                </CardTitle>
+                <CardTitle tag="h4">الاصناف الرئيسية لمحصول ال{crops.name_ar}</CardTitle>
               </CardHeader>
               <CardHeader>
                 <Button

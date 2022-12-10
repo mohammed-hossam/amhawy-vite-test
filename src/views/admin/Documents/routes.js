@@ -1,20 +1,20 @@
-import List from './List';
-import UploadedPics from './uploadedPics';
+import List from "./List";
+import UploadedPics from "./uploadedPics";
 
 var routes = [
   {
-    path: '/',
-    name: 'لوحه المعلومات',
-    icon: 'nc-icon nc-bank',
+    path: "/",
+    name: "لوحه المعلومات",
+    icon: "nc-icon nc-bank",
     component: List,
-    layout: '/admin/documents',
+    layout: "",
   },
   {
-    path: '/uploadedPics',
-    name: 'لوحه المعلومات',
-    icon: 'nc-icon nc-bank',
+    path: "/uploadedPics",
+    name: "لوحه المعلومات",
+    icon: "nc-icon nc-bank",
     component: UploadedPics,
-    layout: '/admin/documents',
+    layout: "",
   },
 ];
 export default routes;

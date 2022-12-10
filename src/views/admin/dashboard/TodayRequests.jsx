@@ -17,9 +17,9 @@ function TodayRequests() {
       });
   }, []);
 
-  let history = useNavigate();
+  let navigate = useNavigate();
   function viewItem(id) {
-    history.push(`/admin/requests/view/${id}`);
+    navigate(`/requests/view/${id}`);
   }
   function printStatus(status) {
     if (status === "inprogress") {

@@ -20,7 +20,7 @@ const Edit = () => {
   const [centers, setCenters] = useState([]);
   const [hamlets, setHamlets] = useState([]);
   const location = useLocation();
-  const history = useNavigate();
+  const navigate = useNavigate();
   //   console.log(location.state);
 
   useEffect(() => {
@@ -141,7 +141,7 @@ const Edit = () => {
           toast.success("تم التعديل بنجاح");
           resetForm();
           setSubmitting(false);
-          history.push(`/admin/initialRequests/view/${location.state.requestId}`);
+          navigate(`/initialRequests/view/${location.state.requestId}`);
           // toggleRegistrationSuccess();
         })
         .catch((e) => {

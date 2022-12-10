@@ -6,8 +6,8 @@ const CheckAuth = ({ children }) => {
   const location = useLocation();
   if (
     localStorage.getItem("token") &&
-    localStorage.getItem("user") &&
-    localStorage.getItem("_r") === "324FC5612ce4E"
+    localStorage.getItem("user")
+    // localStorage.getItem("_r") === "324FC5612ce4E"
   ) {
     return children;
   } else {

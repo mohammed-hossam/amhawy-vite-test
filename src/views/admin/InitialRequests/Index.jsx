@@ -5,7 +5,7 @@
 import React from "react";
 // reactstrap components
 
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import routes from "./routes";
 
 function Tables() {
@@ -13,10 +13,9 @@ function Tables() {
     <>
       <Routes>
         {routes.map((prop, key) => {
-          return (
-            <Route exact path={prop.layout + prop.path} component={prop.component} key={key} />
-          );
+          return <Route path={prop.layout + prop.path} element={<prop.component />} key={key} />;
         })}
+        <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
     </>
   );

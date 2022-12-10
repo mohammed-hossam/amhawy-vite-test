@@ -33,10 +33,10 @@ function View() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // console.log(user);
-  let history = useNavigate();
+  let navigate = useNavigate();
 
   function viewItem(id) {
-    history.push(`/admin/requests/view/${id}`);
+    navigate(`/requests/view/${id}`);
   }
 
   const handelSending = (values) => {

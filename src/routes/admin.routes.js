@@ -17,7 +17,10 @@ import DocumentsList from "views/admin/Documents/Index";
 // import EsriMain from 'views/admin/maps';
 
 // import UserPage from "views/User.js";
-
+const roles = {
+  admin: "324FC5612ce4E",
+  client: "954VC58412cH1M",
+};
 var routes = [
   {
     path: "/",
@@ -25,6 +28,7 @@ var routes = [
     icon: "nc-icon nc-bank",
     component: Dashboard,
     layout: "",
+    roles: [roles.admin, roles.client],
   },
   // {
   //   path: "/requests",
@@ -39,6 +43,7 @@ var routes = [
     icon: "nc-icon nc-tile-56",
     component: InitialRequestsList,
     layout: "",
+    roles: [roles.admin, roles.client],
   },
   // {
   //   path: '/stores',
@@ -53,6 +58,7 @@ var routes = [
     icon: "nc-icon nc-tile-56",
     component: DocumentsList,
     layout: "",
+    roles: [roles.admin, roles.client],
   },
   // {
   //   path: '/combinedMap',
@@ -88,6 +94,7 @@ var routes = [
     icon: "nc-icon nc-single-copy-04",
     component: Reports,
     layout: "",
+    roles: [roles.admin, roles.client],
   },
   {
     path: "users",
@@ -95,6 +102,7 @@ var routes = [
     icon: "nc-icon nc-single-02",
     component: UsersList,
     layout: "",
+    roles: [roles.admin, roles.client],
   },
   {
     path: "crops",
@@ -102,6 +110,7 @@ var routes = [
     icon: "fas fa-seedling",
     component: CropsList,
     layout: "",
+    roles: [roles.admin, roles.client],
   },
   // {
   //   path: '/locations',
@@ -116,6 +125,7 @@ var routes = [
     icon: "nc-icon nc-bell-55",
     component: SendForm,
     layout: "",
+    roles: [roles.admin],
   },
   // {
   //   path: '/post',

@@ -2,20 +2,18 @@
 
 */
 import List from "./List";
-import VarietiesList from './VarietiesList';
-
+import VarietiesList from "./VarietiesList";
 
 var routes = [
   {
     path: "/",
     component: List,
-    layout: "/admin/crops",
+    layout: "",
   },
   {
     path: "/:id",
     component: VarietiesList,
-    layout: "/admin/crops",
+    layout: "",
   },
-   
 ];
 export default routes;

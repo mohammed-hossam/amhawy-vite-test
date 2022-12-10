@@ -23,7 +23,7 @@ import axios from "services/axios.inercept";
 import axiosApiInstance from "services/axios.inercept";
 
 function View() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   let { id } = useParams();
   const [Request, setRequest] = useState({});
   // console.log(Request);
@@ -87,7 +87,7 @@ function View() {
       .then((res) => {
         // console.log(res);
         toast.success(`تم حذف الطلب / ${code}`);
-        history.push("/admin/initialRequests");
+        navigate("/initialRequests");
       })
       .catch((e) => {
         console.error(e);
@@ -122,7 +122,7 @@ function View() {
         console.log(res.data.idSignedUrl[0]);
 
         // toast.success(`تم حذف الطلب / ${code}`);
-        // history.push('/admin/initialRequests');
+        // navigate('/initialRequests');
       })
       .catch((e) => {
         console.error(e);
@@ -171,7 +171,7 @@ function View() {
       .then((values) => {
         console.log(values[0].data.reqId);
         toast.success(`تم قبول الطلب بنجاح`);
-        history.push(`/admin/requests/view/${values[0].data.reqId}`);
+        navigate(`/requests/view/${values[0].data.reqId}`);
       })
       .catch((e) => {
         console.error(e);
@@ -206,8 +206,8 @@ function View() {
               // disabled={Request?.certificate === null}
               className={styles.request_btn}
               onClick={() =>
-                history.push({
-                  pathname: `/admin/initialRequests/edit/${Request?.code}`,
+                navigate({
+                  pathname: `/initialRequests/edit/${Request?.code}`,
                   state: {
                     farmName: Request?.farm?.name,
                     ownerName: Request?.farm?.owner,
@@ -245,7 +245,7 @@ function View() {
               قبول الطلب
             </button>
             <Link
-              to={`/admin/initialRequests/uploadedPics`}
+              to={`/initialRequests/uploadedPics`}
               state={{
                 code: Request?.code,
               }}

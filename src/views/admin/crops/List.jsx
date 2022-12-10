@@ -67,7 +67,7 @@ function Tables() {
                         <tr key={index}>
                           <Link
                             className="linkStyle"
-                            to={`/admin/crops/${crop._id}`}
+                            to={`/crops/${crop._id}`}
                             state={{
                               crop: crop,
                               cropId: crop._id,

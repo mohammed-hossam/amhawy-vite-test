@@ -6,6 +6,7 @@ import ProtectedAdminRoute from "components/Routes/ProtectedAdminRoute";
 // import ProtectedClientRoute from "components/Routes/ProtectedClientRoute";
 // css
 import Error404Page from "views/public/errors/404";
+import UnAuthPage from "views/public/unauth";
 
 import "./assets/admin/scss/paper-dashboard.scss?v=1.3.0";
 
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserStore>
         <Routes>
           <Route path="/404" element={<Error404Page />} />
+          <Route path="/unauth" element={<UnAuthPage />} />
           <Route path="/login/*" element={<PublicLayout />} />
           <Route path="/*" element={<ProtectedAdminRoute component={AdminLayout} />} />
           <Route path="*" element={<Navigate to="/404" replace />} />

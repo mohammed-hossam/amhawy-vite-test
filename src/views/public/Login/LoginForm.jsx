@@ -79,7 +79,7 @@ function LoginForm() {
             payload: response.data.data.role,
           });
           toast.success("تسجيل عمليه الدخول بنجاح");
-          navigate("/client");
+          navigate("/");
           // history.push("/client");
         })
         .catch((e) => {

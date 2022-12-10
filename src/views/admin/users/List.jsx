@@ -27,7 +27,7 @@ function Tables() {
   const [users, setUsers] = useState([]);
   var [page, setPage] = useState(0);
   // var [downloadExcelLink, setDownloadExcelLink] = useState('');
-  let history = useNavigate();
+  let navigate = useNavigate();
 
   function exportToCSV(filename) {
     // console.log(users);
@@ -170,7 +170,7 @@ function Tables() {
   };
 
   function viewItem(id) {
-    history.push(`/admin/users/view/${id}`);
+    navigate(`/users/view/${id}`);
   }
 
   return (

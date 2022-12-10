@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosApiInstance = axios.create({
-  baseURL: 'https://us-central1-takweed-eg.cloudfunctions.net',
+  baseURL: "https://us-central1-takweed-eg.cloudfunctions.net",
   // baseURL: process.env.REACT_APP_BASE_URL,
   // baseURL: 'http://localhost:3002',
 });
@@ -13,8 +13,8 @@ axiosApiInstance.interceptors.request.use(
     // const keys = JSON.parse(value)
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Accept: "application/json",
     };
     return config;
   },
@@ -31,7 +31,7 @@ axiosApiInstance.interceptors.response.use(
   async function (error) {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
-      window.location.replace('/login');
+      // window.location.replace('/login');
     }
     return Promise.reject(error);
   }

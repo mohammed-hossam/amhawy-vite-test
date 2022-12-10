@@ -28,7 +28,7 @@ function Tables() {
   const [modalOpen, setModalOpen] = useState(false);
   const toggle = () => setModalOpen(!modalOpen);
 
-  let history = useNavigate();
+  let navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   function load(page = 1, query = currentQuery) {
@@ -119,7 +119,7 @@ function Tables() {
   };
 
   function viewItem(id) {
-    history.push(`/admin/requests/view/${id}`);
+    navigate(`/requests/view/${id}`);
   }
 
   function printStatus(status) {
@@ -262,7 +262,7 @@ function Tables() {
                   />
                 </Button> */}
 
-                {/* <Link to="/admin/requests/addRequest">
+                {/* <Link to="/requests/addRequest">
                   <Button color="dark">اضافة</Button>
                 </Link> */}
               </CardHeader>
@@ -278,7 +278,7 @@ function Tables() {
                   </thead>
                   <tbody>
                     {requests?.map((request, index) => (
-                      <Link className="linkStyle" to={`/admin/initialRequests/view/${request._id}`}>
+                      <Link className="linkStyle" to={`/initialRequests/view/${request._id}`}>
                         <tr
                           key={index}
                           style={{ cursor: "pointer" }}

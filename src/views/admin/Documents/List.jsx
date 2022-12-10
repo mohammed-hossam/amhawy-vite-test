@@ -156,8 +156,8 @@ function Tables() {
                         className="linkStyle"
                         to={
                           request.requestType === "takweed"
-                            ? `/admin/documents/uploadedPics`
-                            : "/admin/dashboard"
+                            ? `/documents/uploadedPics`
+                            : "/dashboard"
                         }
                         state={{
                           code: request?.code,
